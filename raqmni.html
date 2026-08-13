@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaqmniDZ | التحول الرقمي للمؤسسات الجزائرية</title>
+  <style>
+    :root {
+      --navy: #102a43;
+      --blue: #1976d2;
+      --light-blue: #dceeff;
+      --sky: #eef7ff;
+      --text: #19324a;
+      --muted: #66788a;
+      --white: #ffffff;
+      --success: #16825d;
+      --shadow: 0 12px 35px rgba(16, 42, 67, .12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      color: var(--text);
+      background: #f7fbff;
+      line-height: 1.8;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      background: var(--light-blue);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #c6e0f7;
+    }
+
+    .navbar {
+      width: min(1150px, 92%);
+      min-height: 72px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      color: var(--navy);
+      font-size: 1.5rem;
+      font-weight: 800;
+      direction: ltr;
+    }
+
+    .logo span { color: var(--blue); }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    .language-switcher {
+      display: flex;
+      gap: 5px;
+      direction: ltr;
+    }
+
+    .language-switcher button {
+      border: 1px solid #a8cae7;
+      background: white;
+      color: var(--navy);
+      border-radius: 8px;
+      padding: 5px 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .language-switcher button.active,
+    .language-switcher button:hover {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+
+    main { min-height: 70vh; }
+
+    .page {
+      display: none;
+      animation: fade .35s ease;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin: auto;
+      padding: 75px 0;
+    }
+
+    .hero {
+      min-height: 570px;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      align-items: center;
+      gap: 50px;
+      background:
+        radial-gradient(circle at 88% 15%, #c5e5ff 0, transparent 28%),
+        linear-gradient(135deg, #f6fbff, #e3f2ff);
+    }
+
+    .hero .container {
+      display: contents;
+      width: min(1150px, 92%);
+    }
+
+    .hero-content { padding-right: max(4%, calc((100vw - 1150px) / 2)); }
+
+    .hero h1 {
+      color: var(--navy);
+      line-height: 1.35;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      margin: 0 0 20px;
+    }
+
+    .hero h1 span { color: var(--blue); }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 25px;
+      background: var(--blue);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .25s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #0e5fae;
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: white;
+      box-shadow: var(--shadow);
+      border-radius: 25px;
+      padding: 30px;
+      margin-left: max(4%, calc((100vw - 1150px) / 2));
+      border: 1px solid #dbeeff;
+    }
+
+    .hero-card h3 { color: var(--navy); margin-top: 0; }
+
+    .hero-card div {
+      background: var(--sky);
+      margin: 11px 0;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-right: 4px solid var(--blue);
+      color: var(--navy);
+      font-weight: bold;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      color: var(--navy);
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .section-title p { color: var(--muted); margin: 6px 0; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: white;
+      padding: 25px 18px;
+      border-radius: var(--radius);
+      box-shadow: 0 7px 20px rgba(16, 42, 67, .07);
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 43px;
+      height: 43px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-weight: bold;
+    }
+
+    .step h3 { color: var(--navy); margin: 0; }
+    .step p { margin: 8px 0 0; color: var(--muted); font-size: .92rem; }
+
+    .services-grid, .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .service-card, .news-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(16, 42, 67, .08);
+      overflow: hidden;
+      border: 1px solid #e2effa;
+    }
+
+    .service-top {
+      background: linear-gradient(135deg, var(--navy), #164b78);
+      color: white;
+      padding: 24px;
+    }
+
+    .service-top h3 { margin: 0 0 5px; }
+    .price { font-size: 1.3rem; font-weight: bold; color: #a8ddff; }
+
+    .service-content { padding: 22px; }
+
+    .details {
+      display: none;
+      color: var(--muted);
+      border-top: 1px solid #e9f1f8;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    .details.show { display: block; }
+
+    .outline-btn {
+      border: 1px solid var(--blue);
+      background: transparent;
+      color: var(--blue);
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .outline-btn:hover { background: var(--sky); }
+
+    .faq-list {
+      max-width: 850px;
+      margin: auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 16px rgba(16, 42, 67, .06);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border: none;
+      background: white;
+      color: var(--navy);
+      font: inherit;
+      font-weight: bold;
+      text-align: right;
+      cursor: pointer;
+    }
+
+    .faq-question span { color: var(--blue); font-size: 1.4rem; }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 18px;
+      color: var(--muted);
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-question { background: var(--sky); }
+
+    .news-card { padding: 25px; }
+    .news-tag {
+      display: inline-block;
+      color: var(--blue);
+      background: var(--sky);
+      padding: 3px 10px;
+      border-radius: 30px;
+      font-size: .8rem;
+      font-weight: bold;
+    }
+
+    .news-card h3 { color: var(--navy); line-height: 1.55; }
+    .news-card p { color: var(--muted); font-size: .93rem; }
+    .news-card a { color: var(--blue); font-weight: bold; }
+
+    footer {
+      background: var(--navy);
+      color: #dbeeff;
+      padding: 45px 0 20px;
+    }
+
+    .footer-grid {
+      width: min(1150px, 92%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    footer h3 { color: white; margin-top: 0; }
+    footer p { margin: 5px 0; }
+    footer strong { color: #9cd5ff; }
+
+    .copyright {
+      width: min(1150px, 92%);
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #31516d;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      inset: 0;
+      padding: 20px;
+      background: rgba(8, 27, 46, .62);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show { display: flex; }
+
+    .modal-box {
+      width: min(550px, 100%);
+      position: relative;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-box h2 { color: var(--navy); margin-top: 0; }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      left: 17px;
+      border: none;
+      background: transparent;
+      color: var(--navy);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .form-group { margin-bottom: 15px; }
+
+    label {
+      display: block;
+      color: var(--navy);
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid #c8ddec;
+      border-radius: 8px;
+      padding: 11px;
+      font: inherit;
+      outline-color: var(--blue);
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      color: var(--success);
+      background: #e5f8ef;
+      font-weight: bold;
+    }
+
+    @media (max-width: 800px) {
+      .navbar { flex-wrap: wrap; padding: 12px 0; }
+      nav { order: 3; width: 100%; justify-content: center; gap: 12px; font-size: .9rem; }
+      .hero { grid-template-columns: 1fr; padding: 55px 4%; }
+      .hero-content { padding: 0; }
+      .hero-card { margin: 0; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .services-grid, .news-grid, .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 450px) {
+      .steps { grid-template-columns: 1fr; }
+      nav { gap: 9px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <a class="logo" href="#home" onclick="showPage('home')">Raqmni<span>DZ</span></a>
+
+      <nav>
+        <a href="#home" onclick="showPage('home')" data-i18n="navHome">الرئيسية</a>
+        <a href="#services" onclick="showPage('services')" data-i18n="navServices">الخدمات</a>
+        <a href="#faq" onclick="showPage('faq')" data-i18n="navFaq">الأسئلة الشائعة</a>
+        <a href="#news" onclick="showPage('news')" data-i18n="navNews">المستجدات</a>
+      </nav>
+
+      <div class="language-switcher">
+        <button class="active" onclick="setLanguage('ar')">AR</button>
+        <button onclick="setLanguage('fr')">FR</button>
+        <button onclick="setLanguage('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="hero-content">
+          <h1 data-i18n="heroTitle">رقمنة أعمالك تبدأ مع <span>RaqmniDZ</span></h1>
+          <p data-i18n="heroText">
+            نرافق المؤسسات الصغيرة والمتوسطة الجزائرية في رحلة التحويل الرقمي، من التشخيص إلى التنفيذ. نساعد في الوصول إلى جمهور أوسع، تحسين حضورك الرقمي وكذلك تحسين خدماتك ومنتوجاتك بأدوات رقمية بسيطة وفعالة.
+          </p>
+          <button class="btn" onclick="openModal()" data-i18n="bookBtn">احجز تشخيصاً مجانياً</button>
+        </div>
+
+        <div class="hero-card">
+          <h3 data-i18n="cardTitle">لماذا RaqmniDZ؟</h3>
+          <div data-i18n="card1">حلول مناسبة للسوق الجزائري</div>
+          <div data-i18n="card2">مرافقة مبسطة خطوة بخطوة</div>
+          <div data-i18n="card3">أدوات عملية وفعالة</div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="section-title">
+          <h2 data-i18n="stepsTitle">رحلتك نحو التحول الرقمي</h2>
+          <p data-i18n="stepsText">مراحل واضحة ترافقك من الفكرة إلى النمو.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3 data-i18n="step1Title">تشخيص مجاني</h3>
+            <p data-i18n="step1Text">نفهم نشاطك واحتياجاتك الرقمية.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3 data-i18n="step2Title">خطة التحول الرقمي</h3>
+            <p data-i18n="step2Text">باقة تعليمية عادية أو بريميوم حسب احتياجك.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3 data-i18n="step3Title">مرحلة التنفيذ</h3>
+            <p data-i18n="step3Text">نحوّل الخطة إلى أدوات وحلول عملية.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">4</div>
+            <h3 data-i18n="step4Title">مرحلة المتابعة</h3>
+            <p data-i18n="step4Text">نقيس النتائج ونساعدك على التطور المستمر.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="page">
+      <div class="container">
+        <div class="section-title">
+          <h2 data-i18n="servicesTitle">خدماتنا وباقاتنا</h2>
+          <p data-i18n="servicesText">اختر الحل الملائم لطموح مؤسستك.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-top">
+              <h3 data-i18n="service1Title">الباقة العادية</h3>
+              <div class="price" data-i18n="service1Price">20,000 دج</div>
+            </div>
+            <div class="service-content">
+              <button class="outline-btn" onclick="toggleDetails('s1')" data-i18n="detailsBtn">عرض التفاصيل</button>
+              <div id="s1" class="details" data-i18n="service1Desc">باقة تعليمية أساسية تساعدك على فهم وبناء حضورك الرقمي بطريقة واضحة ومناسبة لنشاطك.</div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3 data-i18n="service2Title">باقة بريميوم</h3>
+              <div class="price" data-i18n="service2Price">50,000 دج</div>
+            </div>
+            <div class="service-content">
+              <button class="outline-btn" onclick="toggleDetails('s2')" data-i18n="detailsBtn">عرض التفاصيل</button>
+              <div id="s2" class="details" data-i18n="service2Desc">باقة متقدمة تشمل مرافقة أوسع، استراتيجية أكثر تفصيلاً، وأدوات متقدمة لتطوير حضورك الرقمي.</div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3 data-i18n="service3Title">التطبيق لمدة شهر</h3>
+              <div class="price" data-i18n="service3Price">15,000 دج</div>
+            </div>
+            <div class="service-content">
+              <button class="outline-btn" onclick="toggleDetails('s3')" data-i18n="detailsBtn">عرض التفاصيل</button>
+              <div id="s3" class="details" data-i18n="service3Desc">مرافقة عملية لمدة شهر لتطبيق الخطة الرقمية وتحويل التوصيات إلى خطوات قابلة للقياس.</div>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3 data-i18n="service4Title">المتابعة الشهرية</h3>
+              <div class="price" data-i18n="service4Price">7,000 دج / الشهر</div>
+            </div>
+            <div class="service-content">
+              <button class="outline-btn" onclick="toggleDetails('s4')" data-i18n="detailsBtn">عرض التفاصيل</button>
+              <div id="s4" class="details" data-i18n="service4Desc">متابعة شهرية لمدة سنة، لتحليل الأداء وتقديم اقتراحات عملية للتحسين المستمر.</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="page">
+      <div class="container">
+        <div class="section-title">
+          <h2 data-i18n="faqTitle">الأسئلة الشائعة</h2>
+          <p data-i18n="faqText">كل ما تحتاج معرفته قبل بدء رحلتك الرقمية.</p>
+        </div>
+
+        <div class="faq-list">
+          <article class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span data-i18n="faq1Q">من يمكنه الاستفادة من خدماتنا؟</span><span>+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq1A">المؤسسات الصغيرة والمتوسطة: المطاعم، المحلات، مكاتب المحاسبة، ومكاتب المحاماة.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span data-i18n="faq2Q">هل أحتاج إلى معرفة تقنية مسبقة؟</span><span>+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq2A">لا، نشرح كل خطوة بلغة بسيطة وعملية.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span data-i18n="faq3Q">هل يمكن الدفع بالتقسيط؟</span><span>+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq3A">نعم، يمكن الدفع بالتقسيط.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span data-i18n="faq4Q">كيف أسجل؟</span><span>+</span>
+            </button>
+            <div class="faq-answer" data-i18n="faq4A">يمكنك تسجيل الدخول بحساب جيميل الخاص بك وحجز استشارة مجانية لتبدأ رحلتك في التحول الرقمي.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="page">
+      <div class="container">
+        <div class="section-title">
+          <h2 data-i18n="newsTitle">المستجدات الاقتصادية</h2>
+          <p data-i18n="newsText">لمحة عن أبرز المؤشرات والتطورات في الاقتصاد الجزائري.</p>
+        </div>
+
+        <div class="news-grid">
+          <article class="news-card">
+            <span class="news-tag" data-i18n="newsTag">اقتصاد الجزائر</span>
+            <h3 data-i18n="news1Title">نمو الاقتصاد الجزائري وارتفاع نشاط القطاعات خارج المحروقات</h3>
+            <p data-i18n="news1Text">البنك الدولي أشار إلى نمو النشاط الاقتصادي في النصف الأول من 2025، مدعوماً بالخدمات والصناعات خارج قطاع المحروقات.</p>
+            <a href="https://www.worldbank.org/en/news/press-release/2025/12/04/algeria-responding-to-climate-challenges-and-supporting-sustainable-development" target="_blank" data-i18n="readMore">قراءة المصدر ←</a>
+          </article>
+
+          <article class="news-card">
+            <span class="news-tag" data-i18n="newsTag">استثمار وتنويع</span>
+            <h3 data-i18n="news2Title">رفع الإنتاجية لتعزيز نمو متنوع ومستدام</h3>
+            <p data-i18n="news2Text">تقرير البنك الدولي يبرز أهمية تحسين الإنتاجية وتوسيع دور القطاع الخاص لتقوية التنويع الاقتصادي.</p>
+            <a href="https://www.worldbank.org/en/news/press-release/2025/06/03/algeria-boosting-productivity-to-achieve-sustainable-and-diversified-growth" target="_blank" data-i18n="readMore">قراءة المصدر ←</a>
+          </article>
+
+          <article class="news-card">
+            <span class="news-tag" data-i18n="newsTag">مؤشرات اقتصادية</span>
+            <h3 data-i18n="news3Title">تباطؤ التضخم واستمرار قوة النشاط خارج المحروقات</h3>
+            <p data-i18n="news3Text">صندوق النقد الدولي سجل انخفاض التضخم في 2024 مع استمرار نمو النشاط غير النفطي، رغم التحديات المالية.</p>
+            <a href="https://www.imf.org/en/news/articles/2025/06/30/pr-25226-algeria-imf-staff-completes-2025-article-iv-mission" target="_blank" data-i18n="readMore">قراءة المصدر ←</a>
+          </article>
+
+          <article class="news-card">
+            <span class="news-tag" data-i18n="newsTag">آفاق الاقتصاد</span>
+            <h3 data-i18n="news4Title">الإصلاحات والقطاع الخاص في صميم الآفاق الاقتصادية</h3>
+            <p data-i18n="news4Text">يشير صندوق النقد إلى أن تعزيز الاستثمار الخاص وتنويع الاقتصاد عنصران أساسيان للنمو وخلق الوظائف على المدى المتوسط.</p>
+            <a href="https://www.imf.org/en/news/articles/2025/09/18/pr-25305-algeria-imf-executive-board-concludes-2025-article-iv-consultation" target="_blank" data-i18n="readMore">قراءة المصدر ←</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>RaqmniDZ</h3>
+        <p data-i18n="footerAbout">شريكك المبسط نحو تحول رقمي عملي وفعّال.</p>
+      </div>
+      <div>
+        <h3 data-i18n="contactTitle">معلومات الاتصال</h3>
+        <p><strong data-i18n="companyLabel">الشركة:</strong> RaqmniDZ</p>
+        <p><strong data-i18n="nameLabel">الاسم:</strong> محمد أمين بن صالح</p>
+        <p><strong data-i18n="emailLabel">البريد الإلكتروني:</strong> contact@raqmnidz.dz</p>
+        <p><strong data-i18n="phoneLabel">الهاتف:</strong> +213 555 00 00 00</p>
+      </div>
+    </div>
+    <div class="copyright" data-i18n="copyright">جميع الحقوق محفوظة © 2026 RaqmniDZ</div>
+  </footer>
+
+  <div id="bookingModal" class="modal">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal()">×</button>
+      <h2 data-i18n="formTitle">احجز تشخيصك المجاني</h2>
+
+      <form onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label for="firstName" data-i18n="firstName">الاسم</label>
+          <input id="firstName" required />
+        </div>
+        <div class="form-group">
+          <label for="lastName" data-i18n="lastName">اللقب</label>
+          <input id="lastName" required />
+        </div>
+        <div class="form-group">
+          <label for="phone" data-i18n="phone">رقم الهاتف</label>
+          <input id="phone" type="tel" required />
+        </div>
+        <div class="form-group">
+          <label for="businessType" data-i18n="businessType">نوع المؤسسة الاقتصادية</label>
+          <select id="businessType" required>
+            <option value="" data-i18n="selectOption">اختر نوع المؤسسة</option>
+            <option data-i18n="restaurant">مطعم</option>
+            <option data-i18n="shop">محل تجاري</option>
+            <option data-i18n="accounting">مكتب محاسبة</option>
+            <option data-i18n="law">مكتب محاماة</option>
+            <option data-i18n="other">أخرى</option>
+          </select>
+        </div>
+        <button class="btn" type="submit" data-i18n="submitBtn">إرسال الطلب</button>
+        <div id="formMessage" class="form-message" data-i18n="successMsg">شكراً! تم استلام طلبك، سنتواصل معك قريباً.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      ar: {
+        navHome: "الرئيسية", navServices: "الخدمات", navFaq: "الأسئلة الشائعة", navNews: "المستجدات",
+        heroTitle: 'رقمنة أعمالك تبدأ مع <span>RaqmniDZ</span>',
+        heroText: "نرافق المؤسسات الصغيرة والمتوسطة الجزائرية في رحلة التحويل الرقمي، من التشخيص إلى التنفيذ. نساعد في الوصول إلى جمهور أوسع، تحسين حضورك الرقمي وكذلك تحسين خدماتك ومنتوجاتك بأدوات رقمية بسيطة وفعالة.",
+        bookBtn: "احجز تشخيصاً مجانياً", cardTitle: "لماذا RaqmniDZ؟", card1: "حلول مناسبة للسوق الجزائري", card2: "مرافقة مبسطة خطوة بخطوة", card3: "أدوات عملية وفعالة",
+        stepsTitle: "رحلتك نحو التحول الرقمي", stepsText: "مراحل واضحة ترافقك من الفكرة إلى النمو.",
+        step1Title: "تشخيص مجاني", step1Text: "نفهم نشاطك واحتياجاتك الرقمية.",
+        step2Title: "خطة التحول الرقمي", step2Text: "باقة تعليمية عادية أو بريميوم حسب احتياجك.",
+        step3Title: "مرحلة التنفيذ", step3Text: "نحوّل الخطة إلى أدوات وحلول عملية.",
+        step4Title: "مرحلة المتابعة", step4Text: "نقيس النتائج ونساعدك على التطور المستمر.",
+        servicesTitle: "خدماتنا وباقاتنا", servicesText: "اختر الحل الملائم لطموح مؤسستك.", detailsBtn: "عرض التفاصيل",
+        service1Title: "الباقة العادية", service1Price: "20,000 دج", service1Desc: "باقة تعليمية أساسية تساعدك على فهم وبناء حضورك الرقمي بطريقة واضحة ومناسبة لنشاطك.",
+        service2Title: "باقة بريميوم", service2Price: "50,000 دج", service2Desc: "باقة متقدمة تشمل مرافقة أوسع، استراتيجية أكثر تفصيلاً، وأدوات متقدمة لتطوير حضورك الرقمي.",
+        service3Title: "التطبيق لمدة شهر", service3Price: "15,000 دج", service3Desc: "مرافقة عملية لمدة شهر لتطبيق الخطة الرقمية وتحويل التوصيات إلى خطوات قابلة للقياس.",
+        service4Title: "المتابعة الشهرية", service4Price: "7,000 دج / الشهر", service4Desc: "متابعة شهرية لمدة سنة، لتحليل الأداء وتقديم اقتراحات عملية للتحسين المستمر.",
+        faqTitle: "الأسئلة الشائعة", faqText: "كل ما تحتاج معرفته قبل بدء رحلتك الرقمية.",
+        faq1Q: "من يمكنه الاستفادة من خدماتنا؟", faq1A: "المؤسسات الصغيرة والمتوسطة: المطاعم، المحلات، مكاتب المحاسبة، ومكاتب المحاماة.",
+        faq2Q: "هل أحتاج إلى معرفة تقنية مسبقة؟", faq2A: "لا، نشرح كل خطوة بلغة بسيطة وعملية.",
+        faq3Q: "هل يمكن الدفع بالتقسيط؟", faq3A: "نعم، يمكن الدفع بالتقسيط.",
+        faq4Q: "كيف أسجل؟", faq4A: "يمكنك تسجيل الدخول بحساب جيميل الخاص بك وحجز استشارة مجانية لتبدأ رحلتك في التحول الرقمي.",
+        newsTitle: "المستجدات الاقتصادية", newsText: "لمحة عن أبرز المؤشرات والتطورات في الاقتصاد الجزائري.", newsTag: "اقتصاد الجزائر", readMore: "قراءة المصدر ←",
+        news1Title: "نمو الاقتصاد الجزائري وارتفاع نشاط القطاعات خارج المحروقات", news1Text: "البنك الدولي أشار إلى نمو النشاط الاقتصادي في النصف الأول من 2025، مدعوماً بالخدمات والصناعات خارج قطاع المحروقات.",
+        news2Title: "رفع الإنتاجية لتعزيز نمو متنوع ومستدام", news2Text: "تقرير البنك الدولي يبرز أهمية تحسين الإنتاجية وتوسيع دور القطاع الخاص لتقوية التنويع الاقتصادي.",
+        news3Title: "تباطؤ التضخم واستمرار قوة النشاط خارج المحروقات", news3Text: "صندوق النقد الدولي سجل انخفاض التضخم في 2024 مع استمرار نمو النشاط غير النفطي، رغم التحديات المالية.",
+        news4Title: "الإصلاحات والقطاع الخاص في صميم الآفاق الاقتصادية", news4Text: "يشير صندوق النقد إلى أن تعزيز الاستثمار الخاص وتنويع الاقتصاد عنصران أساسيان للنمو وخلق الوظائف على المدى المتوسط.",
+        footerAbout: "شريكك المبسط نحو تحول رقمي عملي وفعّال.", contactTitle: "معلومات الاتصال", companyLabel: "الشركة:", nameLabel: "الاسم:", emailLabel: "البريد الإلكتروني:", phoneLabel: "الهاتف:", copyright: "جميع الحقوق محفوظة © 2026 RaqmniDZ",
+        formTitle: "احجز تشخيصك المجاني", firstName: "الاسم", lastName: "اللقب", phone: "رقم الهاتف", businessType: "نوع المؤسسة الاقتصادية", selectOption: "اختر نوع المؤسسة", restaurant: "مطعم", shop: "محل تجاري", accounting: "مكتب محاسبة", law: "مكتب محاماة", other: "أخرى", submitBtn: "إرسال الطلب", successMsg: "شكراً! تم استلام طلبك، سنتواصل معك قريباً."
+      },
+      fr: {
+        navHome: "Accueil", navServices: "Services", navFaq: "FAQ", navNews: "Actualités",
+        heroTitle: 'Votre digitalisation commence avec <span>RaqmniDZ</span>',
+        heroText: "Nous accompagnons les petites et moyennes entreprises algériennes dans leur transformation numérique, du diagnostic à la mise en œuvre. Nous vous aidons à atteindre un public plus large, à améliorer votre présence digitale et vos services grâce à des outils simples et efficaces.",
+        bookBtn: "Réserver un diagnostic gratuit", cardTitle: "Pourquoi RaqmniDZ ?", card1: "Solutions adaptées au marché algérien", card2: "Accompagnement simple, étape par étape", card3: "Outils pratiques et efficaces",
+        stepsTitle: "Votre parcours digital", stepsText: "Des étapes claires, de l'idée à la croissance.",
+        step1Title: "Diagnostic gratuit", step1Text: "Nous comprenons votre activité et vos besoins.",
+        step2Title: "Plan de transformation", step2Text: "Formule standard ou premium selon vos besoins.",
+        step3Title: "Mise en œuvre", step3Text: "Nous transformons le plan en solutions concrètes.",
+        step4Title: "Suivi", step4Text: "Nous mesurons les résultats et vous aidons à progresser.",
+        servicesTitle: "Nos services et formules", servicesText: "Choisissez la solution adaptée à votre ambition.", detailsBtn: "Voir les détails",
+        service1Title: "Formule standard", service1Price: "20 000 DA", service1Desc: "Une formule éducative essentielle pour construire votre présence numérique.",
+        service2Title: "Formule premium", service2Price: "50 000 DA", service2Desc: "Un accompagnement avancé avec stratégie détaillée et outils performants.",
+        service3Title: "Mise en œuvre — 1 mois", service3Price: "15 000 DA", service3Desc: "Un accompagnement pratique d'un mois pour mettre votre plan en action.",
+        service4Title: "Suivi mensuel", service4Price: "7 000 DA / mois", service4Desc: "Un suivi mensuel pendant une année pour analyser et améliorer vos résultats.",
+        faqTitle: "Questions fréquentes", faqText: "Tout ce qu'il faut savoir avant de commencer.",
+        faq1Q: "Qui peut bénéficier de nos services ?", faq1A: "Les PME : restaurants, commerces, cabinets comptables et cabinets d'avocats.",
+        faq2Q: "Ai-je besoin de connaissances techniques ?", faq2A: "Non, nous expliquons chaque étape simplement.",
+        faq3Q: "Le paiement échelonné est-il possible ?", faq3A: "Oui, le paiement en plusieurs fois est possible.",
+        faq4Q: "Comment m'inscrire ?", faq4A: "Connectez-vous avec votre compte Gmail et réservez une consultation gratuite.",
+        newsTitle: "Actualités économiques", newsText: "Un aperçu des indicateurs de l'économie algérienne.", newsTag: "Économie algérienne", readMore: "Lire la source →",
+        news1Title: "Croissance et dynamisme des secteurs hors hydrocarbures", news1Text: "La Banque mondiale relève une activité soutenue par les services et l'industrie hors hydrocarbures.",
+        news2Title: "La productivité au service d'une croissance diversifiée", news2Text: "La Banque mondiale souligne le rôle de la productivité et du secteur privé.",
+        news3Title: "Inflation en baisse et activité hors hydrocarbures résiliente", news3Text: "Le FMI relève la baisse de l'inflation et le maintien de l'activité non pétrolière.",
+        news4Title: "Réformes et secteur privé au cœur des perspectives", news4Text: "Le FMI met l'accent sur l'investissement privé et la diversification.",
+        footerAbout: "Votre partenaire pour une transformation numérique simple et efficace.", contactTitle: "Coordonnées", companyLabel: "Entreprise :", nameLabel: "Nom :", emailLabel: "E-mail :", phoneLabel: "Téléphone :", copyright: "Tous droits réservés © 2026 RaqmniDZ",
+        formTitle: "Réservez votre diagnostic gratuit", firstName: "Prénom", lastName: "Nom", phone: "Téléphone", businessType: "Type d'entreprise", selectOption: "Choisissez un type", restaurant: "Restaurant", shop: "Commerce", accounting: "Cabinet comptable", law: "Cabinet d'avocats", other: "Autre", submitBtn: "Envoyer la demande", successMsg: "Merci ! Votre demande a été reçue."
+      },
+      en: {
+        navHome: "Home", navServices: "Services", navFaq: "FAQ", navNews: "News",
+        heroTitle: 'Your digital journey starts with <span>RaqmniDZ</span>',
+        heroText: "We support Algerian small and medium-sized businesses in their digital transformation journey, from assessment to implementation. We help you reach a wider audience, improve your online presence, and enhance your services with simple, effective digital tools.",
+        bookBtn: "Book a free assessment", cardTitle: "Why RaqmniDZ?", card1: "Solutions for the Algerian market", card2: "Simple step-by-step guidance", card3: "Practical and effective tools",
+        stepsTitle: "Your digital transformation journey", stepsText: "Clear stages from idea to growth.",
+        step1Title: "Free assessment", step1Text: "We understand your business and digital needs.",
+        step2Title: "Digital transformation plan", step2Text: "Standard or premium package based on your needs.",
+        step3Title: "Implementation", step3Text: "We turn the plan into practical solutions.",
+        step4Title: "Follow-up", step4Text: "We measure results and support continuous progress.",
+        servicesTitle: "Our services and packages", servicesText: "Choose the solution for your business goals.", detailsBtn: "View details",
+        service1Title: "Standard package", service1Price: "20,000 DZD", service1Desc: "An essential learning package to build your digital presence.",
+        service2Title: "Premium package", service2Price: "50,000 DZD", service2Desc: "Advanced support with a detailed strategy and more powerful tools.",
+        service3Title: "One-month implementation", service3Price: "15,000 DZD", service3Desc: "One month of practical support to bring your digital plan to life.",
+        service4Title: "Monthly follow-up", service4Price: "7,000 DZD / month", service4Desc: "Monthly support for one year to analyse and improve results.",
+        faqTitle: "Frequently asked questions", faqText: "Everything you need before you begin.",
+        faq1Q: "Who can benefit from our services?", faq1A: "Small and medium businesses: restaurants, shops, accounting firms and law offices.",
+        faq2Q: "Do I need technical knowledge?", faq2A: "No. We explain every step in simple, practical language.",
+        faq3Q: "Can I pay in instalments?", faq3A: "Yes, instalment payments are available.",
+        faq4Q: "How do I register?", faq4A: "Sign in with your Gmail account and book a free consultation to begin.",
+        newsTitle: "Economic news", newsText: "Key updates and indicators from the Algerian economy.", newsTag: "Algerian economy", readMore: "Read source →",
+        news1Title: "Growth and stronger non-hydrocarbon sectors", news1Text: "The World Bank reports activity supported by services and industries outside hydrocarbons.",
+        news2Title: "Productivity for diversified growth", news2Text: "The World Bank highlights productivity and private-sector development.",
+        news3Title: "Lower inflation and resilient non-hydrocarbon activity", news3Text: "The IMF notes declining inflation and continued non-oil activity.",
+        news4Title: "Reforms and private sector at the core of outlook", news4Text: "The IMF stresses private investment and diversification.",
+        footerAbout: "Your partner for simple and effective digital transformation.", contactTitle: "Contact information", companyLabel: "Company:", nameLabel: "Name:", emailLabel: "Email:", phoneLabel: "Phone:", copyright: "All rights reserved © 2026 RaqmniDZ",
+        formTitle: "Book your free assessment", firstName: "First name", lastName: "Last name", phone: "Phone number", businessType: "Business type", selectOption: "Choose a type", restaurant: "Restaurant", shop: "Retail shop", accounting: "Accounting firm", law: "Law office", other: "Other", submitBtn: "Send request", successMsg: "Thank you! Your request has been received."
+      }
+    };
+
+    function showPage(pageId) {
+      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openModal() {
+      document.getElementById("bookingModal").classList.add("show");
+    }
+
+    function closeModal() {
+      document.getElementById("bookingModal").classList.remove("show");
+    }
+
+    function toggleDetails(id) {
+      document.getElementById(id).classList.toggle("show");
+    }
+
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      item.classList.toggle("open");
+      button.lastElementChild.textContent = item.classList.contains("open") ? "−" : "+";
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+      document.getElementById("formMessage").style.display = "block";
+      event.target.reset();
+    }
+
+    function setLanguage(lang) {
+      const data = translations[lang];
+      const isArabic = lang === "ar";
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isArabic ? "rtl" : "ltr";
+      document.body.style.fontFamily = isArabic ? "Tahoma, Arial, sans-serif" : "Arial, sans-serif";
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (data[key]) element.innerHTML = data[key];
+      });
+
+      document.querySelectorAll(".language-switcher button").forEach(button => {
+        button.classList.toggle("active", button.textContent.toLowerCase() === lang);
+      });
+    }
+
+    document.getElementById("bookingModal").addEventListener("click", function(event) {
+      if (event.target === this) closeModal();
+    });
+  </script>
+</body>
+</html>
